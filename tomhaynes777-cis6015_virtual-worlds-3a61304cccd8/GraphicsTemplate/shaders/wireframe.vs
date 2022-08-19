@@ -10,6 +10,7 @@ layout (location = 5) uniform mat4          viewMatrix;
 
 layout (location = 6) uniform vec3          gCP;
 layout (location = 7) uniform vec3          lightPosition;
+layout (location = 8) uniform float         bWireframe;
 
 out VS_DATA
 {

@@ -138,10 +138,10 @@ void cMesh::render(cScene * pScene, cShaderInfo* pShaderInfo)
 	int vertexCount = m_f_count * 3; // calculate the number of vertices for this object
 	glBindVertexArray(m_VAO);
 
-	
-	glDrawArrays(GL_TRIANGLES, 0, vertexCount);
-	
-		
+	if (shdr != 6)
+		glDrawArrays(GL_TRIANGLES, 0, vertexCount);
+	else
+		glDrawArrays(GL_PATCHES, 0, vertexCount);
 	
 }
 

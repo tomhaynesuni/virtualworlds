@@ -1,19 +1,21 @@
 #version 460
 
 // We'll do coordinate transforms for each tessellated vertex here
-layout (location = 8) uniform mat4 mvpMatrix;
+layout (location = 3) uniform mat4          modelMatrix;
+layout (location = 4) uniform mat4          projMatrix;
+layout (location = 5) uniform mat4          viewMatrix;
 
 layout (quads, equal_spacing, ccw) in;
 
 in ControlPoint {
 
-  vec4    colour;
+  float   Intensity;
   vec2    texCoord;
   
 } inControlPoints[];
 
 out TessVertex {
-  vec4    colour;
+  float   Intensity;
   vec2    texCoord;
 } outputVertex;
 
@@ -28,10 +30,10 @@ void main() {
   float w2 = u * v;
   float w3 = (1.0f - u) * v;
 
-  outputVertex.colour = inControlPoints[0].colour * w0 + 
-                        inControlPoints[1].colour * w1 +
-                        inControlPoints[2].colour * w2 + 
-	                    inControlPoints[3].colour * w3;
+  outputVertex.Intensity = inControlPoints[0].Intensity * w0 + 
+                        inControlPoints[1].Intensity * w1 +
+                        inControlPoints[2].Intensity * w2 + 
+	                    inControlPoints[3].Intensity * w3;
   
   outputVertex.texCoord = inControlPoints[0].texCoord * w0 +
                           inControlPoints[1].texCoord * w1 +
@@ -43,6 +45,6 @@ void main() {
              gl_in[2].gl_Position.xyz * w2 +
              gl_in[3].gl_Position.xyz * w3;
              
-  gl_Position = mvpMatrix * vec4(pos, 1.0f);
+  gl_Position = projMatrix * viewMatrix * modelMatrix * vec4(pos, 1.0f);
 
 }

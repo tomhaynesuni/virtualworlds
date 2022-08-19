@@ -10,11 +10,11 @@ layout (location = 5) uniform mat4          viewMatrix;
 
 layout (location = 6) uniform vec3          gCP;
 layout (location = 7) uniform vec3          lightPosition;
-layout (location = 8) uniform mat4          mvpMatrix;
+layout (location = 8) uniform float         bWireframe;
 
 out vPoint
 {
-    vec4 colour;
+    float Intensity;
     vec2 texCoord;
 }   outvPoints;
 
@@ -29,8 +29,22 @@ out vPoint
 void main()
 {    
 
-    outvPoints.texCoord    = texCoord_VS;
-    outvPoints.colour = vec4(1.0, 1.0, 1.0, 1.0);
+   // outvPoints.texCoord    = texCoord_VS;
+   //outvPoints.colour = vec4(1.0, 1.0, 1.0, 1.0);
 
-    gl_Position = vec4(vertexPos_VS, 1.0);
+   // gl_Position = vec4(vertexPos_VS, 1.0);
+
+    vec3 mpos   = (modelMatrix * vec4(vertexPos_VS, 1.0)).xyz;
+
+     outvPoints.texCoord    = texCoord_VS;
+    
+    vec3 Normal 	   = (modelMatrix * vec4(vertexNormal_VS, 0.0)).xyz;     
+    vec3 N = normalize(Normal);
+
+    vec3 lightDir  = lightPosition - mpos;
+    vec3 L = normalize(lightDir);
+
+    outvPoints.Intensity = dot(N, L);
+
+    gl_Position =  vec4(vertexPos_VS, 1.0);
 }

@@ -55,28 +55,28 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 			// rotate camera about y-axis
 			//pCamera->m_rot.y += 1.0f;
-			pCamera->m_dir.x += -1.0f;
+			pCamera->m_dir.x += -0.1f;
 		}break;
 
 		case GLFW_KEY_D:
 		{
 			// rotate camera about y-axis
 			//pCamera->m_rot.y -= 1.0f;
-			pCamera->m_dir.x += 1.0f;
+			pCamera->m_dir.x += 0.1f;
 		}break;
 
 		case GLFW_KEY_W:
 		{
 			// rotate camera about x-axis
 			//pCamera->m_rot.x -= 1.0f;
-			pCamera->m_dir.y += 1.0f;
+			pCamera->m_dir.y += 0.1f;
 		}break;
 
 		case GLFW_KEY_S:
 		{
 			// rotate camera about x-axis
 			//pCamera->m_rot.x += 1.0f;
-			pCamera->m_dir.y += -1.0f;
+			pCamera->m_dir.y += -0.1f;
 		}break;
 
 		case GLFW_KEY_UP:
