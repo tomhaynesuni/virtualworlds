@@ -46,9 +46,12 @@ void cScene::init()
 /////////////////////////////////////////////////////////////////////////////////////
 void cScene::render(const int invisMesh_)
 {
+	// because update is called in render - skybox update can infinite loop (if skybox.update is in scene.update as you would expect)
 	update();
-	if(invisMesh_)
-	m_Skybox->update(this);
+	
+	// not being called for now
+	/*if(invisMesh_)
+	m_Skybox->update(this); */
 
 	int invisMesh = 0;
 	if (invisMesh_) {
@@ -65,7 +68,27 @@ void cScene::render(const int invisMesh_)
 		}
 	}
 
-	// store the camera settings - i.e. pos, oritentation					// ADDED FROM VIDEO
+		m_Mesh[0].render(this, &m_ShaderInfo);
+	//update();
+
+	// Multipass render plane
+	glActiveTexture(GL_TEXTURE0 + (GLuint)(m_Mesh[3].m_tex[0]));
+	glReadBuffer(GL_BACK);
+	glBindTexture(GL_TEXTURE_2D, (GLuint)(m_Mesh[3].m_tex[0]));
+	glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 0, 0, 800, 600, 0);
+
+	glBindTexture(GL_TEXTURE_2D, (GLuint)(m_Mesh[3].m_tex[0]));
+	glDrawBuffer(GL_BACK);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	//glActiveTexture(GL_TEXTURE0 + 3);
+
+	m_Mesh[3].render(this, &m_ShaderInfo);
+
+
+	// store the camera settings - i.e. pos, oritentation					// second attempt at skybox rendering, based on class tutorial recording
 	//vec3 camera_start_pos = m_Camera->m_pos;
 	//vec3 camera_start_dir = m_Camera->m_dir;
 	//float camera_start_fov = m_Camera->m_fov;
@@ -88,9 +111,9 @@ void cScene::render(const int invisMesh_)
 	//	glCopyTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + pass, 0, GL_RGBA, 0, 0, 1024, 1024, 0);
 	//	//glBindTexture(GL_TEXTURE_CUBE_MAP, (GLuint)(m_Mesh[0].m_tex));
 
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-	////	// convert to cube map texture
+	////	// convert to cube map texture															// first attempt at skybox rendering
 	//	//glCopyTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + pass, 0, GL_RGBA, 0, 0, 1024, 1024, 0);
 	//	glDrawBuffer(GL_BACK);
 
@@ -112,24 +135,6 @@ void cScene::render(const int invisMesh_)
 	{
 		m_Mesh[i].render(this, &m_ShaderInfo);
 	}*/
-		m_Mesh[0].render(this, &m_ShaderInfo);
-	//update();
-
-	// Multipass render plane
-	glActiveTexture(GL_TEXTURE0 + (GLuint)(m_Mesh[3].m_tex[0]));
-	glReadBuffer(GL_BACK);
-	glBindTexture(GL_TEXTURE_2D, (GLuint)(m_Mesh[3].m_tex[0]));
-	glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 0, 0, 800, 600, 0);
-
-	glBindTexture(GL_TEXTURE_2D, (GLuint)(m_Mesh[3].m_tex[0]));
-	glDrawBuffer(GL_BACK);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-	//glActiveTexture(GL_TEXTURE0 + 3);
-
-	m_Mesh[3].render(this, &m_ShaderInfo);
 	/////////////////////////////////////////////////////////////////////////////////////
 
 	

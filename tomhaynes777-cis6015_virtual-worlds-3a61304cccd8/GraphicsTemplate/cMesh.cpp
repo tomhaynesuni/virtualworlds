@@ -43,14 +43,40 @@ cMesh::cMesh()
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 cMesh::~cMesh()
 {
-	if( m_v )
+	// many things were missing deletes and all were misisng nullptr
+	if( m_v ) {
 		delete [] m_v;
-	if( m_vt )
+		m_v = nullptr;
+	}
+	if( m_vt ) {
 		delete [] m_vt;
-	if( m_vn )
+		m_vt = nullptr;
+	}
+	if( m_vn ) {
 		delete m_vn;
-	if( m_f )
+		m_vn = nullptr;
+	}
+	if (m_fn) {
+		delete m_fn;
+		m_fn = nullptr;
+	}
+	if( m_f ) {
 		delete m_f;
+		m_f = nullptr;
+	}
+	if (m_eList) {
+		delete[] m_eList;
+		m_eList = nullptr;
+	}
+	if (m_vList) {
+		delete [] m_vList;
+		m_vList = nullptr;
+	}
+	if (m_mtlList) {
+		delete[] m_mtlList;
+		m_mtlList = nullptr;
+	}
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////

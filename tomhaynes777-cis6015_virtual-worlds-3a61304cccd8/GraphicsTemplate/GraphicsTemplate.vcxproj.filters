@@ -154,20 +154,5 @@
     <None Include="shaders\tesselation.vs">
       <Filter>shaders</Filter>
     </None>
-    <None Include="shaders\tess.cs">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="shaders\tess.es">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="shaders\tess.fs">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="shaders\tess.gs">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="shaders\tess.vs">
-      <Filter>shaders</Filter>
-    </None>
   </ItemGroup>
 </Project>

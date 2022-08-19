@@ -178,11 +178,6 @@
     <None Include="shaders\plane.vs" />
     <None Include="shaders\stripe.fs" />
     <None Include="shaders\stripe.vs" />
-    <None Include="shaders\tess.cs" />
-    <None Include="shaders\tess.es" />
-    <None Include="shaders\tess.fs" />
-    <None Include="shaders\tess.gs" />
-    <None Include="shaders\tess.vs" />
     <None Include="shaders\tesselation.cs" />
     <None Include="shaders\tesselation.es" />
     <None Include="shaders\tesselation.fs" />

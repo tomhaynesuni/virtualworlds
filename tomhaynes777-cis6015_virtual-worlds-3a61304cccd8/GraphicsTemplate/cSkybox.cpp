@@ -78,6 +78,7 @@ void cSkybox::update(class cScene* pScene)
 		pCamera->lookAt(pCamera->m_pos, map_directions[i]);
 
 		// render the scene
+		// this can cause an infinte loop with render and update
 		pScene->render(1);
 
 		// grab a copy of what we lhave just rendered from the back buffer
