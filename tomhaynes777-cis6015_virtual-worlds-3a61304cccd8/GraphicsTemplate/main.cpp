@@ -221,7 +221,7 @@ int main()
 	// Loop while program is not terminated.
 	while (!glfwWindowShouldClose(window)) {
 
-
+		Scene.update();
 		renderScene();						// Render into the current buffer
 		glfwSwapBuffers(window);			// Displays what was just rendered (using double buffering).
 

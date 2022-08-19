@@ -11,6 +11,8 @@ void cScene::update()
 	{
 		m_Mesh[i].m_transform.update();
 	}
+
+	m_Skybox->update(this);
 	
 }
 /////////////////////////////////////////////////////////////////////////////////////
@@ -47,9 +49,9 @@ void cScene::init()
 void cScene::render(const int invisMesh_)
 {
 	// because update is called in render - skybox update can infinite loop (if skybox.update is in scene.update as you would expect)
-	update();
+	//update();
 	
-	// not being called for now
+	// not being called for now 
 	/*if(invisMesh_)
 	m_Skybox->update(this); */
 
